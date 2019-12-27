@@ -1,4 +1,3 @@
-
 <!-- FOOTER -->
 <footer id="footer">
 			<!-- top footer -->
@@ -23,20 +22,27 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="#">Rohu</a></li>
-									<li><a href="#">katla</a></li>
-									<li><a href="#">Pabda</a></li>
-									<li><a href="#">Tilapiya</a></li>
-									<li><a href="#">Basa</a></li>
-									<li><a href="#">Maurrel</a></li>
-									<li><a href="#">zinga</a></li>
-									<li><a href="#">BlackPumfret</a></li>
-									<li><a href="#">Surmai</a></li>
+								
+								<?php
+							$cat_fetch = "SELECT * FROM `categories` ";
+							$category = mysqli_query($con, $cat_fetch);
+							while ($data = mysqli_fetch_assoc($category)) {
+								$cat_title = $data['cat_title'];
+								$cat_id = $data['cat_id'];
+							
+							?>
+
+                            <li><a href='index.php?cat_id=<?php echo $cat_id; ?>'><?php
+																						echo $cat_title;
+																						?></a></li>
+                            <?php
+							}
+							?>
 								</ul>
 							</div>
 						</div>
 
-						<div class="clearfix visible-xs"></div>
+                <div class="clearfix visible-xs"></div>
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
@@ -51,24 +57,24 @@
 							</div>
 						</div>
 
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Service</h3>
-								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Track My Order</a></li>
-									<li><a href="#">Help</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /row -->
-				</div>
-				<!-- /container -->
-			</div>
-			<!-- /top footer -->
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Service</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="header.php",class="cart-dropdown">View Cart</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /top footer -->
 
 			<!-- bottom footer -->
 			<div id="bottom-footer" class="section">
