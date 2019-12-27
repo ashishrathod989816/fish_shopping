@@ -194,7 +194,7 @@ include "header.php";
 								I've read and accept the <a href="#">terms & conditions</a>
 							</label>
 						</div>
-						<a href="#" class="primary-btn order-submit">Place order</a>
+						<a href="paytm/PaytmKit/TxnTest.php" class="primary-btn order-submit">Place order</a>
 					</div>
 					<!-- /Order Details -->
 				</div>
