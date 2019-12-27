@@ -32,8 +32,9 @@
 							
 							?>
 
-                            <li><a href='index.php?cat_id=<?php echo $cat_id; ?>'><?php
-																						echo $cat_title;
+							<li><a href='index.php?cat_id=<?php echo $cat_id; ?>'>
+							<?php
+										echo $cat_title;
 																						?></a></li>
                             <?php
 							}
@@ -48,8 +49,8 @@
 							<div class="footer">
 								<h3 class="footer-title">Information</h3>
 								<ul class="footer-links">
-									<li><a href="#">About Us</a></li>
-									<li><a href="contact_us/index.html">Contact Us</a></li>
+								
+									<li><a href="contact_us/contact_us.php">Contact Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Orders and Returns</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
