@@ -566,7 +566,7 @@ include "header.php";
 
             <div>
                 <!-- product widget -->
-                <!-- <div class="product-widget">
+                <div class="product-widget">
 									<div class="product-img">
 										<img src="./img/product01.png" alt="">
 									</div>
@@ -588,7 +588,7 @@ include "header.php";
 										<h3 class="product-name"><a href="#">product name goes here</a></h3>
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
-								</div> -->
+								</div>
                 <!-- /product widget -->
 
             </div>
@@ -617,16 +617,16 @@ include "header.php";
                     </form>
                     <ul class="newsletter-follow">
                         <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="www.twitter.com"><i class="fa fa-twitter"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="www.pinintrest.com"><i class="fa fa-pinterest"></i></a>
                         </li>
                     </ul>
                 </div>
