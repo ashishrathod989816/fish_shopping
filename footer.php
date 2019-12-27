@@ -12,7 +12,7 @@
 								<p>This is a online fish shooping poratl </p>
 								<ul class="footer-links">
 									<li><a href="https://www.google.com/maps/place/Pusad,+Maharashtra/@19.9093604,77.528328,13z/data=!3m1!4b1!4m5!3m4!1s0x3bd1754ee1c7bba1:0x4fa254d0a0f7568e!8m2!3d19.9104257!4d77.568649"><i class="fa fa-map-marker"></i>Pusad,Maharashtra</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>9405766421</a></li>
+									<li><a href=""><i class="fa fa-phone"></i>9405766421</a></li>
 									<li><a href="https://www.google.com/intl/en-GB/gmail/about/#"><i class="fa fa-envelope-o"></i>dannybhusare@gmail.com</a></li>
 								</ul>
 							</div>
@@ -49,9 +49,9 @@
 							<div class="footer">
 								<h3 class="footer-title">Information</h3>
 								<ul class="footer-links">
-								
+									<li><a href="#">About Us</a></li>
 									<li><a href="contact_us/contact_us.php">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="privacy.php">Privacy Policy</a></li>
 									<li><a href="#">Orders and Returns</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
 								</ul>
@@ -64,8 +64,8 @@
                         <ul class="footer-links">
                             <li><a href="#">My Account</a></li>
                             <li><a href="header.php",class="cart-dropdown">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
+                          
+                          
                             <li><a href="#">Help</a></li>
                         </ul>
                     </div>
