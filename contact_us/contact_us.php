@@ -68,10 +68,11 @@ if (isset($_POST["submit"])) {
 	$name =$_POST['name'];
 	$email = $_POST['email'];
 	$web = $_POST['web'];
-    $info = $_POST['text'];
+	$info = $_POST['text'];
+	
 
-	$query = "INSERT INTO `contact_us` (`name`, `email`, `web`, `info`) VALUES ('$name', '$email', '$web', '$info')";
-	$result = mysqli_query($con, $query);
+	$query = "INSERT INTO contact_us VALUES('$name','$email','$web','$info')";
+	$result = mysqli_query($con, $query) ;
 	if ($result) {
 		echo "your massege is send ";
 	}

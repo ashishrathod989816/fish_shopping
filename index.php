@@ -82,49 +82,47 @@ include "header.php";
 
 								if (empty($_GET)) {
 									$cat_id = 1;
-									$id=0;
+									$id = 0;
 									// no data passed by get
 								} else {
 									$cat_id = $_GET['cat_id'];
 									$id = $_GET['prd_id'];
 								}
 
-if($id<>0){
-
-
-
-	
-
-
-	function getUserIpAddr(){
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-			//ip from share internet
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-			//ip pass from proxy
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}else{
-			$ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return $ip;
-	}
-
-		$id = $_GET['prd_id'];
-	
-		$ip_add=getUserIpAddr();
-	
+								if ($id <> 0) {
 
 
 
 
 
 
-		$add_to_card_query =
-			"INSERT INTO cart VALUES('$id','$ip_add','2')";
-		$add_to_cart = mysqli_query($con, $add_to_card_query);
+									// function getUserIpAddr()
+									// {
+									// 	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+									// 		//ip from share internet
+									// 		$ip = $_SERVER['HTTP_CLIENT_IP'];
+									// 	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+									// 		//ip pass from proxy
+									// 		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+									// 	} else {
+									// 		$ip = $_SERVER['REMOTE_ADDR'];
+									// 	}
+									// 	return $ip;
+									// }
 
 
-}
+									$ip_add = getUserIpAddr();
+
+
+
+
+
+
+
+									$add_to_card_query =
+										"INSERT INTO cart VALUES('$id','$ip_add','2')";
+									$add_to_cart = mysqli_query($con, $add_to_card_query);
+								}
 
 
 
@@ -169,10 +167,10 @@ if($id<>0){
 
 
 												<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 	<a href='index.php?cat_id=<?php echo $cat_id?>& prd_id=<?php echo $prd_id;?>'>add to
-                                            cart</a>
-											</button>
-											
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a href='index.php?cat_id=<?php echo $cat_id ?>& prd_id=<?php echo $prd_id;?>&del_id="0"& action="none"&search=0'>add to
+															cart</a>
+													</button>
+
 
 
 
@@ -197,7 +195,7 @@ if($id<>0){
 										</form>
 
 
-								
+
 
 
 
@@ -660,35 +658,35 @@ if($id<>0){
 
 <!-- NEWSLETTER -->
 <div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="https://www.facebook.com/campaign/landing.php?campaign_id=1653993517&extra_1=s%7Cc%7C318504235901%7Ce%7Cfacebook%7C&placement=&creative=318504235901&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1653993517%26adgroupid%3D63066387003%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D1t1%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D9062140%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=EAIaIQobChMI6IDRkZnV5gIViqoYCh20KAnqEAAYASAAEgIVLvD_BwE"><i class="fa fa-facebook"></i></a>
-                        </li>
-                     
-                        <li>
-                            <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://in.pinterest.com/"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="newsletter">
+					<p>Sign Up for the <strong>NEWSLETTER</strong></p>
+					<form>
+						<input class="input" type="email" placeholder="Enter Your Email">
+						<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+					</form>
+					<ul class="newsletter-follow">
+						<li>
+							<a href="https://www.facebook.com/campaign/landing.php?campaign_id=1653993517&extra_1=s%7Cc%7C318504235901%7Ce%7Cfacebook%7C&placement=&creative=318504235901&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1653993517%26adgroupid%3D63066387003%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D1t1%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D9062140%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=EAIaIQobChMI6IDRkZnV5gIViqoYCh20KAnqEAAYASAAEgIVLvD_BwE"><i class="fa fa-facebook"></i></a>
+						</li>
+
+						<li>
+							<a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+						</li>
+						<li>
+							<a href="https://in.pinterest.com/"><i class="fa fa-pinterest"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
 </div>
 <!-- /NEWSLETTER -->
 
@@ -707,4 +705,3 @@ include "footer.php";
 ?>
 
 </html>
-
