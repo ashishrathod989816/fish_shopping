@@ -206,7 +206,7 @@ include "dbconnect.php";
 				    ?>
 						  
 						  <ul class="main-nav nav navbar-nav">
-						<li><a href='index.php?cat_id=<?php echo $cat_id;?>'><?php echo $cat_title ;?>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
+						<li><a href='index.php?cat_id=<?php echo $cat_id;?>& prd_id=<?php echo '0';?>'><?php echo $cat_title ;?>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
 					       </ul> 
 					<?php
 					    }

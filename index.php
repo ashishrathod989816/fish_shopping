@@ -82,10 +82,55 @@ include "header.php";
 
 								if (empty($_GET)) {
 									$cat_id = 1;
+									$id=0;
 									// no data passed by get
 								} else {
 									$cat_id = $_GET['cat_id'];
+									$id = $_GET['prd_id'];
 								}
+
+if($id<>0){
+
+
+
+	
+
+
+	function getUserIpAddr(){
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+			//ip from share internet
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+			//ip pass from proxy
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}else{
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
+	}
+
+		$id = $_GET['prd_id'];
+	
+		$ip_add=getUserIpAddr();
+	
+
+
+
+
+
+
+		$add_to_card_query =
+			"INSERT INTO cart VALUES('$id','$ip_add','2')";
+		$add_to_cart = mysqli_query($con, $add_to_card_query);
+
+
+}
+
+
+
+
+
+
 
 								// echo '<script>alert("'.$_GET['cat_id'].')</script>';
 								$select2 = "SELECT * FROM categories WHERE cat_id = $cat_id";
@@ -124,10 +169,15 @@ include "header.php";
 
 
 												<div class="add-to-cart">
-													<!-- <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
-                                            cart</button> -->
-													<input class="add-to-cart-btn" type="submit" name="submit" value='Add to cart'>
-													<i class="fa fa-shopping-cart"></i>
+												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> 	<a href='index.php?cat_id=<?php echo $cat_id?>& prd_id=<?php echo $prd_id;?>'>add to
+                                            cart</a>
+											</button>
+											
+
+
+
+													<!-- <input class="add-to-cart-btn" type="submit" name="submit" value='Add to cart'>
+													<i class="fa fa-shopping-cart"></i> -->
 
 													<!-- <button onclick="AddToCart(this.$prd_id)" id="myButton" value="Add to card" name="submit">Add to card </button> -->
 													<!-- <script>
@@ -147,45 +197,7 @@ include "header.php";
 										</form>
 
 
-										<?php
-															
-
-
-
-
-
-
-															// function getUserIpAddr(){
-															//     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-															//         //ip from share internet
-															//         $ip = $_SERVER['HTTP_CLIENT_IP'];
-															//     }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-															//         //ip pass from proxy
-															//         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-															//     }else{
-															//         $ip = $_SERVER['REMOTE_ADDR'];
-															//     }
-															//     return $ip;
-															// }
-
-
-
-
-
-															if (isset($_POST['submit'])) {
-
-																$add_to_card_query =
-																	"INSERT INTO cart VALUES($prd_id,'192.168.0.21','2')";
-																$add_to_cart = mysqli_query($con, $add_to_card_query);
-															}
-
-															?>
-															
-
-
-														
-
-
+								
 
 
 
@@ -695,3 +707,4 @@ include "footer.php";
 ?>
 
 </html>
+
