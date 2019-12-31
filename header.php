@@ -78,14 +78,19 @@ include "dbconnect.php";
                     <!-- SEARCH BAR -->
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form method="POST">
+                            <form action="index.php?prd_id=0&del_id=0" method="get">
                                 <!-- <select class="input-select">
 										<option value="0">All Categories</option>
 										<option value="1">Category 01</option>
 										<option value="1">Category 02</option>
-									</select> -->
-                                <input class="input" placeholder="Search here" name='seach'>
-                                <button class="search-btn" name='searching'>Search</button>
+                                    </select> -->
+
+                                <input class="input" type="text" placeholder="Search here" name='query'>
+
+                                <input type="submit" class='search-btn' name="search" value="search" />
+
+                                <!-- <a href='index.php?search=none' type="button"  class="search-btn">Search</a> -->
+
 
 
 
@@ -113,68 +118,57 @@ include "dbconnect.php";
                             <!-- Cart -->
                             <?php
 
-							// if (empty($_POST['searching'])) {
-							// 	$search = 0;
-							// }
-							// if (!isset($_POST['searching'])) {
-							// 	$search = $_GET["search"];
-							// 	$cat_id = $search;
-							// }
+                       
 
-							$ip_add = getUserIpAddr();
-							if (empty($_GET['prd_id'])) {
-								$prd_id = 0;
-							}
-							if (empty($_GET['del_id'])) {
+                            $ip_add = getUserIpAddr();
+                            if (empty($_GET['prd_id'])) {
+                                $prd_id = 0;
+                            }
+                            else{
+                                $prd_id = $_GET['prd_id'];
 
-								$del_id = 0;
-							}
-							if (empty($_GET['action'])) {
-								$action = "none";
-							}
+                            }
+                            if (empty($_GET['del_id'])) {
 
-							if (empty($_GET)) {
-								$prd_id = 0;
-								$del_id = 0;
-								$action = "none";
-								// no data passed by get
-							} else {
-								$prd_id = $_GET['prd_id'];
+                                $del_id = 0;
+                            }
+                            else{
+                                $del_id = $_GET['del_id'];
+                            }
+                           
 
-								$del_id = $_GET['del_id'];
-								$action = $_GET['action'];
-							}
+                         
 
-							if ($del_id <> 0) {
+                            if ($del_id <> 0) {
 
 
 
-								$delete_query = "DELETE FROM cart WHERE p_id=$del_id";
-								$delete = mysqli_query($con, $delete_query);
-							}
+                                $delete_query = "DELETE FROM cart WHERE p_id=$del_id";
+                                $delete = mysqli_query($con, $delete_query);
+                            }
 
-							if ($prd_id <> 0) {
+                            if ($prd_id <> 0) {
 
-								$ip_add = getUserIpAddr();
+                                $ip_add = getUserIpAddr();
 
-								$add_to_card_query =
-									"INSERT INTO cart VALUES('$prd_id','$ip_add','2')";
-								$add_to_cart = mysqli_query($con, $add_to_card_query);
-							}
+                                $add_to_card_query =
+                                    "INSERT INTO cart VALUES('$prd_id','$ip_add','1')";
+                                $add_to_cart = mysqli_query($con, $add_to_card_query);
+                            }
 
 
 
 
 
-							$cart_count_query = "SELECT count(*) FROM `cart` where ip_add='$ip_add'";
-							$count_result = mysqli_query($con, $cart_count_query);
-							$count = mysqli_fetch_array($count_result);
+                            $cart_count_query = "SELECT count(*) FROM `cart` where ip_add='$ip_add'";
+                            $count_result = mysqli_query($con, $cart_count_query);
+                            $count = mysqli_fetch_array($count_result);
 
-							$number = $count[0];
+                            $number = $count[0];
 
 
 
-							?>
+                            ?>
 
 
 
@@ -195,101 +189,83 @@ include "dbconnect.php";
 
 
                                         <?php
-										// include "index.php";
-										$total = 0;
-										$ip_add = getUserIpAddr();
-										function getUserIpAddr()
-										{
-											if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-												//ip from share internet
-												$ip = $_SERVER['HTTP_CLIENT_IP'];
-											} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-												//ip pass from proxy
-												$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-											} else {
-												$ip = $_SERVER['REMOTE_ADDR'];
-											}
-											return $ip;
-										}
+                                        // include "index.php";
+                                        $total = 0;
+                                        $ip_add = getUserIpAddr();
+                                        function getUserIpAddr()
+                                        {
+                                            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                                                //ip from share internet
+                                                $ip = $_SERVER['HTTP_CLIENT_IP'];
+                                            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                                                //ip pass from proxy
+                                                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                                            } else {
+                                                $ip = $_SERVER['REMOTE_ADDR'];
+                                            }
+                                            return $ip;
+                                        }
 
 
 
 
 
 
-										if ($number > 0) {
+                                        if ($number > 0) {
 
-											$fetch_cart_data = "SELECT * FROM `products` INNER JOIN cart on products.prd_id=cart.p_id AND cart.ip_add='$ip_add' LEFT JOIN categories on products.prd_cat=categories.cat_id";
-											$fetch_cart_result = mysqli_query($con, $fetch_cart_data);
-											while ($cart = mysqli_fetch_assoc($fetch_cart_result)) {
-												$prd_img = $cart['prd_img'];
-												$prd_title = $cart['prd_title'];
-												$prd_price = $cart['prd_price'];
-												$prd_id = $cart['prd_id'];
-												$total = $total + $prd_price;
-
-
-										?>
+                                            $fetch_cart_data = "SELECT * FROM `products` INNER JOIN cart on products.prd_id=cart.p_id AND cart.ip_add='$ip_add' LEFT JOIN categories on products.prd_cat=categories.cat_id";
+                                            $fetch_cart_result = mysqli_query($con, $fetch_cart_data);
+                                            while ($cart = mysqli_fetch_assoc($fetch_cart_result)) {
+                                                $prd_img = $cart['prd_img'];
+                                                $prd_title = $cart['prd_title'];
+                                                $prd_price = $cart['prd_price'];
+                                                $prd_id = $cart['prd_id'];
+                                                $total = $total + $prd_price;
 
 
+                                        ?>
 
 
 
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/<?php echo "$prd_img" ?>" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#"><?php echo "$prd_title" ?></a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span><?php echo "₹. ";
-																												echo "$prd_price"; ?></h4>
-                                            </div>
 
-                                            <form action="" method="POST">
 
-                                                <button class="delete" name="delete"
-                                                    formaction="?del_id=<?php echo $prd_id ?>& action='delete' & cat_id=1 & prd_id=0"><i
-                                                        class="fa fa-close"></i></button>
-                                            </form>
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="./img/<?php echo "$prd_img" ?>" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="#"><?php echo "$prd_title" ?></a></h3>
+                                                        <h4 class="product-price"><span class="qty">1x</span><?php echo "₹. ";
+                                                                                                                echo "$prd_price"; ?></h4>
+                                                    </div>
 
+                                                    <form action="" method="POST">
+
+                                                        <button class="delete" name="delete" formaction="?del_id=<?php echo $prd_id ?>& action='delete' & cat_id=1 & prd_id=0"><i class="fa fa-close"></i></button>
+                                                    </form>
+
+
+
+
+
+
+                                                </div>
 
 
 
 
 
                                             <?php
-													// if (isset($_POST["delete"])) {
-													// 	$p_id = $_POST["p_id"];
-													// 	$delete_query = "DELETE FROM cart WHERE p_id=$p_id";
-													// 	$delete = mysqli_query($con, $delete_query);
-													// }
-
-
-													?>
-
-
-
-                                            <!-- 
-													<input >
-													<i class="fa fa-close"></i></input> -->
-
-                                        </div>
+                                            }
+                                            ?>
 
 
 
 
 
                                         <?php
-											}
-											?>
-
-
-
-
-
-                                        <?php
-										}
-										?>
+                                        }
+                                        ?>
 
 
 
@@ -313,7 +289,7 @@ include "dbconnect.php";
                                     <div class="cart-summary">
                                         <small><?php echo $number ?> Item(s) selected</small>
                                         <h5>SUBTOTAL: <?php echo "₹. ";
-														echo $total; ?></h5>
+                                                        echo $total; ?></h5>
                                     </div>
                                     <div class="cart-btns">
                                         <a href="">View Cart</a>
@@ -355,23 +331,22 @@ include "dbconnect.php";
                 <?php
 
 
-				$cat = "SELECT * FROM categories";
+                $cat = "SELECT * FROM categories";
 
-				$result = mysqli_query($con, $cat);
-				while ($row = mysqli_fetch_assoc($result)) {
+                $result = mysqli_query($con, $cat);
+                while ($row = mysqli_fetch_assoc($result)) {
 
-					$cat_id = $row['cat_id'];
-					$cat_title = $row['cat_title'];
-				?>
+                    $cat_id = $row['cat_id'];
+                    $cat_title = $row['cat_title'];
+                ?>
 
-                <ul class="main-nav nav navbar-nav">
-                    <li><a
-                            href='index.php?cat_id=<?php echo $cat_id; ?>& prd_id=<?php echo 0; ?>&del_id=0 & action="none" & search="none"'><?php echo $cat_title; ?>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-                    </li>
-                </ul>
+                    <ul class="main-nav nav navbar-nav">
+                        <li><a href='index.php?cat_id=<?php echo $cat_id; ?>& prd_id=0 & del_id=0'><?php echo $cat_title; ?>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                        </li>
+                    </ul>
                 <?php
-				}
-				?>
+                }
+                ?>
                 <!-- /NAV -->
             </div>
             <!-- /responsive-nav -->

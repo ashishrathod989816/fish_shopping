@@ -8,11 +8,11 @@ include "header.php";
 
 <!-- SECTION -->
 <div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<!-- shop
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- shop
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
@@ -24,10 +24,10 @@ include "header.php";
 							</div>
 						</div>
 					</div>-->
-			<!-- /shop -->
+            <!-- /shop -->
 
-			<!-- shop -->
-			<!-- <div class="col-md-4 col-xs-6">
+            <!-- shop -->
+            <!-- <div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="./img/shop03.png" alt="">
@@ -38,10 +38,10 @@ include "header.php";
 							</div>
 						</div>
 					</div> -->
-			<!-- /shop -->
+            <!-- /shop -->
 
-			<!-- shop -->
-			<!-- <div class="col-md-4 col-xs-6">
+            <!-- shop -->
+            <!-- <div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="./img/shop02.png" alt="">
@@ -52,49 +52,104 @@ include "header.php";
 							</div>
 						</div>
 					</div> -->
-			<!-- /shop -->
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
+            <!-- /shop -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </div>
 <!-- /SECTION -->
 
 <!-- SECTION -->
 <div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
 
-			<!-- Products tab & slick -->
-			<div class="col-md-12">
-				<div class="row">
-					<div class="products-tabs">
-						<!-- tab -->
-						<div id="tab1" class="tab-pane active">
-							<div class="products-slick" data-nav="#slick-nav-1">
-								<!-- product -->
-
-								<?php
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                <!-- product -->
 
 
 
-								if (empty($_GET)) {
+
+                                <?php
+
+
+								// if (!isset($_POST['searching'])) {
+
+
+								// 		$search = $_POST['search'];
+								// 		echo $search;
+
+
+
+
+
+								// 	$search_query = "SELECT * FROM `categories` RIGHT JOIN products ON categories.cat_id=products.prd_cat WHERE prd_title='%$search%' or prd_keyword='%$search%' OR cat_title='$search' OR catagory_details='$search'";
+
+
+								// 	while ($row = mysqli_fetch_assoc($search_query)) {
+
+								// 		$cat_id = $row[0];
+								// 	}
+								// }
+
+
+								if (empty($_GET['query']) || $_GET['query'] == '') {
 									$cat_id = 1;
-									$id = 0;
-									// no data passed by get
+									if (empty($_GET['cat_id'])) {
+										$cat_id = 1;
+
+										// no data passed by get
+									} else {
+										$cat_id = $_GET['cat_id'];
+									}
 								} else {
-									$cat_id = $_GET['cat_id'];
+
+									$query = $_GET['query'];
+									$search_query = "SELECT DISTINCT cat_id FROM `categories` RIGHT JOIN products ON categories.cat_id=products.prd_cat WHERE prd_title LIKE '%$query%' or prd_keyword LIKE '%$query%' OR cat_title LIKE '%$query%' OR catagory_details LIKE '%$query%'
+									";
+									$search_execute_query = mysqli_query($con, $search_query);
+									$row_query_search = mysqli_fetch_assoc($search_execute_query);
+									if ($row_query_search > 0) {
+										$cat_id = $row_query_search['cat_id'];
+									} else {
+										$cat_id = 1;
+									}
+								}
+
+								?>
+
+
+
+
+
+
+
+
+
+
+                                <?php
+
+
+
+
+								if (empty($_GET['prd_id'])) {
+
+									$id = 0;
+								} else {
+
 									$id = $_GET['prd_id'];
 								}
 
 								if ($id <> 0) {
-
-
-
-
-
 
 									// function getUserIpAddr()
 									// {
@@ -112,15 +167,8 @@ include "header.php";
 
 
 									$ip_add = getUserIpAddr();
-
-
-
-
-
-
-
 									$add_to_card_query =
-										"INSERT INTO cart VALUES('$id','$ip_add','2')";
+										"INSERT INTO cart VALUES('$id','$ip_add','1')";
 									$add_to_cart = mysqli_query($con, $add_to_card_query);
 								}
 
@@ -151,34 +199,37 @@ include "header.php";
 								?>
 
 
-										<form action="" method="POST" onsubmit="addtocart($prd_id)">
+                                <form action="" method="POST" onsubmit="addtocart($prd_id)">
 
-											<div class="product">
-												<div class="product-img">
-													<img style="width:200px;height:250px;" src="./images/<?php echo $prd_img; ?>" alt="">
-												</div>
-												<div class="product-body">
-													<p class="product-category"><?php echo $cat_title; ?></p>
-													<h3 class="product-name"><a href="#"><?php echo $prd_title;  ?></a></h3>
-													<h4 class="product-price">Rs. <?php echo $prd_price; ?></h4>
-
-
-												</div>
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <img style="width:200px;height:250px;"
+                                                src="./images/<?php echo $prd_img; ?>" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category"><?php echo $cat_title; ?></p>
+                                            <h3 class="product-name"><a href="#"><?php echo $prd_title;  ?></a></h3>
+                                            <h4 class="product-price">Rs. <?php echo $prd_price; ?></h4>
 
 
-												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a href='index.php?cat_id=<?php echo $cat_id ?>& prd_id=<?php echo $prd_id;?>&del_id="0"& action="none"&search=0'>add to
-															cart</a>
-													</button>
+                                        </div>
+
+
+                                        <div class="add-to-cart">
+                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a
+                                                    href='index.php?cat_id=<?php echo $cat_id ?>& prd_id=<?php echo $prd_id; ?>&del_id="0"& action="none"&query=0'>add
+                                                    to
+                                                    cart</a>
+                                            </button>
 
 
 
 
-													<!-- <input class="add-to-cart-btn" type="submit" name="submit" value='Add to cart'>
+                                            <!-- <input class="add-to-cart-btn" type="submit" name="submit" value='Add to cart'>
 													<i class="fa fa-shopping-cart"></i> -->
 
-													<!-- <button onclick="AddToCart(this.$prd_id)" id="myButton" value="Add to card" name="submit">Add to card </button> -->
-													<!-- <script>
+                                            <!-- <button onclick="AddToCart(this.$prd_id)" id="myButton" value="Add to card" name="submit">Add to card </button> -->
+                                            <!-- <script>
 														function AddToCart(elem) {
 															var r = confirm(" **confirm add to card** ");
 														
@@ -190,16 +241,16 @@ include "header.php";
 
 
 
-												</div>
-											</div>
-										</form>
+                                        </div>
+                                    </div>
+                                </form>
 
 
 
 
 
 
-								<?php }
+                                <?php }
 								} ?>
 
 
@@ -213,10 +264,10 @@ include "header.php";
 
 
 
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product02.png" alt="">
 												<div class="product-label">
@@ -244,10 +295,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product03.png" alt="">
 												<div class="product-label">
@@ -270,10 +321,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product04.png" alt="">
 											</div>
@@ -298,10 +349,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product05.png" alt="">
 											</div>
@@ -326,19 +377,19 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
-							</div>
-							<div id="slick-nav-1" class="products-slick-nav"></div>
-						</div>
-						<!-- /tab -->
-					</div>
-				</div>
-			</div>
-			<!-- Products tab & slick -->
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </div>
 <!-- /SECTION -->
 
@@ -390,21 +441,21 @@ include "header.php";
 
 <!-- SECTION -->
 <div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
 
 
-			<!-- Products tab & slick -->
-			<div class="col-md-12">
-				<div class="row">
-					<div class="products-tabs">
-						<!-- tab -->
-						<div id="tab2" class="tab-pane fade in active">
-							<div class="products-slick" data-nav="#slick-nav-2">
-								<!-- product -->
-								<!-- <div class="product">
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab2" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-2">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product06.png" alt="">
 												<div class="product-label">
@@ -433,10 +484,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product07.png" alt="">
 												<div class="product-label">
@@ -464,10 +515,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product08.png" alt="">
 												<div class="product-label">
@@ -490,10 +541,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product09.png" alt="">
 											</div>
@@ -518,10 +569,10 @@ include "header.php";
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 											</div>
 										</div> -->
-								<!-- /product -->
+                                <!-- /product -->
 
-								<!-- product -->
-								<!-- <div class="product">
+                                <!-- product -->
+                                <!-- <div class="product">
 											<div class="product-img">
 												<img src="./img/product01.png" alt="">
 											</div>
@@ -547,27 +598,27 @@ include "header.php";
 											</div>
 										</div>
 									 /product -->
-								<!-- </div>
+                                <!-- </div>
 									<div id="slick-nav-2" class="products-slick-nav"></div>
 								</div> -->
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
-					<!-- /Products tab & slick -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+                                <!-- /tab -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Products tab & slick -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /SECTION -->
 
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<!-- <div class="row">
+        <!-- SECTION -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <!-- <div class="row">
 					<div class="col-md-4 col-xs-6">
 						<div class="section-title">
 							<h4 class="title">Top selling</h4>
@@ -578,8 +629,8 @@ include "header.php";
 
 						<div class="products-widget-slick" data-nav="#slick-nav-3">
 							<div> -->
-				<!-- product widget -->
-				<!-- <div class="product-widget">
+                <!-- product widget -->
+                <!-- <div class="product-widget">
 									<div class="product-img">
 										<img src="./img/product07.png" alt="">
 									</div>
@@ -589,10 +640,10 @@ include "header.php";
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
 								</div> -->
-				<!-- /product widget -->
+                <!-- /product widget -->
 
-				<!-- product widget -->
-				<!-- <div class="product-widget">
+                <!-- product widget -->
+                <!-- <div class="product-widget">
 									<div class="product-img">
 										<img src="./img/product08.png" alt="">
 									</div>
@@ -602,10 +653,10 @@ include "header.php";
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
 								</div> -->
-				<!-- /product widget -->
+                <!-- /product widget -->
 
-				<!-- product widget -->
-				<!-- <div class="product-widget">
+                <!-- product widget -->
+                <!-- <div class="product-widget">
 									<div class="product-img">
 										<img src="./img/product09.png" alt="">
 									</div>
@@ -615,13 +666,13 @@ include "header.php";
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
 								</div> -->
-				<!-- product widget -->
-			</div>
+                <!-- product widget -->
+            </div>
 
-			<div>
-				<!-- product widget -->
-				<div class="product-widget">
-					<!-- <div class="product-img">
+            <div>
+                <!-- product widget -->
+                <div class="product-widget">
+                    <!-- <div class="product-img">
 										<img src="./img/product01.png" alt="">
 									</div>
 									<div class="product-body">
@@ -630,10 +681,10 @@ include "header.php";
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
 								</div> -->
-					<!-- /product widget -->
+                    <!-- /product widget -->
 
-					<!-- product widget -->
-					<!-- <div class="product-widget">
+                    <!-- product widget -->
+                    <!-- <div class="product-widget">
 									<div class="product-img">
 										<img src="./img/product02.png" alt="">
 									</div>
@@ -645,12 +696,12 @@ include "header.php";
 								</div>
                  /product widget -->
 
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
-	</div>
-	<!-- /row -->
+    </div>
+    <!-- /row -->
 </div>
 <!-- /container -->
 </div>
@@ -658,35 +709,37 @@ include "header.php";
 
 <!-- NEWSLETTER -->
 <div id="newsletter" class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="newsletter">
-					<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-					<form>
-						<input class="input" type="email" placeholder="Enter Your Email">
-						<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-					</form>
-					<ul class="newsletter-follow">
-						<li>
-							<a href="https://www.facebook.com/campaign/landing.php?campaign_id=1653993517&extra_1=s%7Cc%7C318504235901%7Ce%7Cfacebook%7C&placement=&creative=318504235901&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1653993517%26adgroupid%3D63066387003%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D1t1%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D9062140%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=EAIaIQobChMI6IDRkZnV5gIViqoYCh20KAnqEAAYASAAEgIVLvD_BwE"><i class="fa fa-facebook"></i></a>
-						</li>
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter">
+                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                    <form>
+                        <input class="input" type="email" placeholder="Enter Your Email">
+                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                    </form>
+                    <ul class="newsletter-follow">
+                        <li>
+                            <a
+                                href="https://www.facebook.com/campaign/landing.php?campaign_id=1653993517&extra_1=s%7Cc%7C318504235901%7Ce%7Cfacebook%7C&placement=&creative=318504235901&keyword=facebook&partner_id=googlesem&extra_2=campaignid%3D1653993517%26adgroupid%3D63066387003%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D1t1%26target%3D%26targetid%3Dkwd-541132862%26loc_physical_ms%3D9062140%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gclid=EAIaIQobChMI6IDRkZnV5gIViqoYCh20KAnqEAAYASAAEgIVLvD_BwE"><i
+                                    class="fa fa-facebook"></i></a>
+                        </li>
 
-						<li>
-							<a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
-						</li>
-						<li>
-							<a href="https://in.pinterest.com/"><i class="fa fa-pinterest"></i></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
+                        <li>
+                            <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://in.pinterest.com/"><i class="fa fa-pinterest"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </div>
 <!-- /NEWSLETTER -->
 
